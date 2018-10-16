@@ -7,7 +7,7 @@ int main() {
     printf("Entrer un message avec i en second (max 25 lettres)\n");
     scanf("%s", msg);
 
-    if(msg[1] == 'i') {
+    if (msg[1] == 'i') {
         printf("pong \n");
     } else {
         printf("i n'est pas la seconde lettre \n");

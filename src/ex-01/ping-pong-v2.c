@@ -4,8 +4,8 @@
 int main() {
     char msg[25];
 
-    printf("Entrer un message (max 25 lettres)\n");
-    scanf("%s", msg);
+    printf("Entrer un message (max 24 lettres)\n");
+    scanf("%24s", msg);
     printf("Message: %s \n", msg);
     return 0;
 }
