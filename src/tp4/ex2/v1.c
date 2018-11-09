@@ -1,19 +1,14 @@
 #include <stdio.h>
-#define MAX_TAILLE 9
-
-void quotientEtReste(int diviseur, int dividende, int *quotient, int *reste);
 
 int main() {
-    int result = 0;
-    int modulus = 0;
+    int n = 1;
+    int* p = &n;
 
-    quotientEtReste(2, 53, &result, &modulus);
+    printf("%p \n", &n);
+    printf("%p \n", p);
 
-    printf("quotient: %d, reste %d \n", result, modulus);
+    *p = 2;
+    printf("%d \n", n);
+
     return 0;
-}
-
-void quotientEtReste(int diviseur, int dividende, int *quotient, int *reste) {
-    *reste = dividende / diviseur;
-    *quotient = dividende % diviseur;
 }
