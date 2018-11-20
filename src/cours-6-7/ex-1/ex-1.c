@@ -1,18 +1,13 @@
-#include <stdlib.h>
 #include <stdio.h>
+
+#include "int-array.h"
 
 #define GRIS 0x808080
 #define NOIR 0x000000
 #define ROUGE 0xFF0000
 #define ARGENTE 0xC0C0C0
-#define MAX_TAILLE 25
 
-typedef struct intArray {
-    unsigned int size;
-    int numbers[MAX_TAILLE];
-} intArray;
-
-void displayIntArray(intArray* arr);
+// gcc -Wall -O2 ex-1.c int-array.c -o ex-1.exe
 
 int main() {
     intArray colors;
@@ -26,10 +21,3 @@ int main() {
 
     return 0;
 }
-
-void displayIntArray(intArray* arr) {
-    for(int i = 0; i < arr->size; i++) {
-        printf("%X \n", arr->numbers[i]);
-    }
-}
-
