@@ -8,5 +8,15 @@ int main() {
         printf("lettre: %c, ASCII: %d \n", lettre, lettre);
         lettre++;
     }
+    lettre = 'a';
+    while(lettre <= 'z') {
+        printf("lettre: %c, ASCII: %d \n", lettre, lettre);
+        lettre++;
+    }
+    lettre = '0';
+    while(lettre <= '9') {
+        printf("lettre: %c, ASCII: %d \n", lettre, lettre);
+        lettre++;
+    }
     return 0;
 }
