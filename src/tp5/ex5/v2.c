@@ -7,11 +7,11 @@ int i;
 
 double suiteU(int n);
 
-// Version beaucoups plus optimise que v1 car moins d'appels
+// Version beaucoups plus optimise que v1 car moins d'appels en simple recursivite
 
 int main() {
     printf("%f \n", suiteU(10));
-    printf("%d \n", i);
+    printf("nombre d'appel pour 10: %d \n", i);
 
     return EXIT_SUCCESS;
 }

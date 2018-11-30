@@ -8,11 +8,11 @@ int i;
 double suiteU(int n);
 double suiteV(int n);
 
-// Voir calcul de racine de 2 sur pc hyper optimise
+// Double recursivite donc mons optimise que v2
 
 int main() {
     printf("%f \n", suiteV(10));
-    printf("%d \n", i);
+    printf("nombre d'appel pour 10: %d \n", i);
 
     return EXIT_SUCCESS;
 }
