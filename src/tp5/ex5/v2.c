@@ -7,6 +7,7 @@ int i;
 
 double suiteU(int n);
 
+// Donne la racine de 2
 // Version beaucoups plus optimise que v1 car moins d'appels en simple recursivite
 
 int main() {
