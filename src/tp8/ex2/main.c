@@ -3,7 +3,8 @@
 
 int main() {
     Complexe myvar;
-    initComplexe(&myvar, 1, 9);
+    initComplexe(&myvar, 3, 4);
     afficheComplexe(myvar);
+    printf("%f \n", moduleComplexe(myvar));
     return 0;
 }

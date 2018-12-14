@@ -11,6 +11,7 @@ void afficheComplexe(Complexe c);
 Complexe sommeComplexe(Complexe cUn, Complexe cDeux);
 Complexe produitComplexe(Complexe cUn, Complexe cDeux);
 Complexe conjuge(Complexe c);
+double moduleComplexe(Complexe c);
 void inverseComplexe(Complexe* c);
 
 #endif

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include "complex.h"
 
 void initComplexe(Complexe* c, double reel, double img) {
@@ -11,15 +12,28 @@ void afficheComplexe(Complexe c) {
 }
 
 Complexe sommeComplexe(Complexe cUn, Complexe cDeux) {
-    return cUn;
+    Complexe result;
+    result.reel = cUn.reel + cDeux.reel;
+    result.img = cUn.img + cDeux.img;
+    return result;
 }
 
 Complexe produitComplexe(Complexe cUn, Complexe cDeux) {
-    return cUn;
+    Complexe result;
+    result.reel = cUn.reel * cDeux.reel;
+    result.img = cUn.img * cDeux.img;
+    return result;
 }
 
 Complexe conjuge(Complexe c) {
-    return c;
+    Complexe result;
+    result.reel = c.reel;
+    result.img = -c.img;
+    return result;
+}
+
+double moduleComplexe(Complexe c){
+    return sqrt(pow(c.reel, 2) + pow(c.img, 2));
 }
 
 void inverseComplexe(Complexe* c) {
