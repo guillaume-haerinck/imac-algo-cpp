@@ -7,4 +7,7 @@ typedef struct Date {
     int annee;
 } Date;
 
+void ecrireDate(Date date);
+
+
 #endif
