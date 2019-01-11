@@ -1,11 +1,16 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "classe.h"
-#include "fiche.h"
 
 int main(int argc, char const *argv[])
 {
-    /* code */
-    printf("Hello world\n");
-    return 0;
+    Classe classe;
+    initialiseClasse(&classe);
+
+    ecrireClasse(&classe);
+    lireClasse(&classe);
+
+    freeClasse(&classe);
+    return EXIT_SUCCESS;
 }

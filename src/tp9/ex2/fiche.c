@@ -1,5 +1,6 @@
 #include "fiche.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void lireFiche(Fiche* fiche) {
     printf("Nom : %s\n", fiche->nom);
@@ -7,6 +8,7 @@ void lireFiche(Fiche* fiche) {
     printf("Date de naissance : ");
     lireDate(fiche->dateDeNaissance);
     printf("Notes : ");
+    // TODO print the notes
 };
 
 int ajoutNote(Fiche* fiche, float note) {
@@ -26,7 +28,8 @@ void ecrireFiche(Fiche* fiche){
 	scanf("%s", fiche->nom);
 	printf("Entrez le prénom\n");
 	scanf("%s", fiche->prenom);
-	ecrireDate(&(fiche->dateDeNaissance));
+    // FIXME
+	// ecrireDate(fiche->dateDeNaissance);
 }
 
 
