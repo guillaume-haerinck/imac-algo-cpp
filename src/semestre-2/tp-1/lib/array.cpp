@@ -32,7 +32,8 @@ int Array::get(const uint index)
 		throw std::out_of_range("get(): Given index is out of bound !");
 	_hasBeenReaden[index] = true;
     _readAccess++;
-    //QThread::msleep(Array::instruction_duration);
+    if (!QThread::currentThread()->isInterruptionRequested())
+        QThread::msleep(Array::instruction_duration);
 	return data[index];
 }
 
@@ -47,7 +48,8 @@ void Array::set(const uint index, int value)
 		throw std::out_of_range("set(): Given index is out of bound !");
 	_hasBeenWritten[index] = true;
     _writeAccess++;
-    //QThread::msleep(Array::instruction_duration*2);
+    if (!QThread::currentThread()->isInterruptionRequested())
+        QThread::msleep(Array::instruction_duration*2);
 	data[index] = value;
 }
 
@@ -62,7 +64,8 @@ void Array::swap(const uint index1, const uint index2)
     _writeAccess += 2;
     _hasBeenReaden[index1] = _hasBeenReaden[index2] = true;
     _readAccess += 2;
-    //QThread::msleep(Array::instruction_duration*3);
+    if (!QThread::currentThread()->isInterruptionRequested())
+        QThread::msleep(Array::instruction_duration*3);
 }
 
 void Array::insert(const uint index, int value)

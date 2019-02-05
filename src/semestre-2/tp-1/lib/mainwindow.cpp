@@ -139,7 +139,7 @@ void MainWindow::closeEvent(QCloseEvent* e)
 {
     if (workerThread && workerThread->isRunning())
     {
-        //workerThread->requestInterruption();
+        workerThread->requestInterruption();
         workerThread->wait(5000);
     }
     QMainWindow::closeEvent(e);
@@ -149,7 +149,7 @@ MainWindow::~MainWindow()
 {
     if (workerThread && workerThread->isRunning())
     {
-        //workerThread->requestInterruption();
+        workerThread->requestInterruption();
         workerThread->wait(5000);
     }
 }
