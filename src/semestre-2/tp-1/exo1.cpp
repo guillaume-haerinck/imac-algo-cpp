@@ -2,20 +2,24 @@
 #include <QApplication>
 #include <time.h>
 
-// https://en.wikipedia.org/wiki/Insertion_sort
-void insertionSort(Array& toSort) {
-    for (uint i = 1; i < toSort.size(); i++) {
-        uint j = i;
-        while (j > 0 && (toSort.get(j - 1) > toSort.get(j))) {
-            toSort.swap(j - 1, j);
-            j -= 1;
+void selectionSort(Array& toSort) {
+    for(uint i = 0; i < toSort.size(); i++) {
+        uint minIndex = i;
+        int minValue = toSort[minIndex];
+        for (uint j = i + 1; j < toSort.size(); j++) {
+            int value = toSort[j];
+            if (value < minValue) {
+                minIndex = j;
+                minValue = value;
+            }
         }
+        toSort.swap(i, minIndex);
     }
 }
 
 int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
-	MainWindow w(insertionSort, 10);
+    MainWindow w(selectionSort, 10);
 	w.show();
 
 	return a.exec();

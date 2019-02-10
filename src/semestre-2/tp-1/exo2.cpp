@@ -2,10 +2,15 @@
 #include <QApplication>
 #include <time.h>
 
-MainWindow* w=nullptr;
+MainWindow* w = nullptr;
 
 void insertionSort(Array& toSort){
-	// sort by insertion
+    Array& secondArray = w->newArray(toSort.size());
+    secondArray.set(0, toSort.get(0));
+
+
+
+    toSort = secondArray;
 }
 
 int main(int argc, char *argv[])
