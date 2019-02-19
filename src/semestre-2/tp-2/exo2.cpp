@@ -9,7 +9,11 @@ int fibonacci(int n)
 {
     NOTIFY_START("fibonacci", n) // notify the call of this function to the MainWindow
 
-	// recursiv fibonacci
+    if((n == 1)||(n == 0)) {
+        return(n);
+    } else {
+        return(fibonacci(n - 1) + fibonacci(n - 2));
+    }
 }
 
 int main(int argc, char *argv[])
