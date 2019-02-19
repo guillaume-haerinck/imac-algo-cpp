@@ -154,7 +154,7 @@ public:
         : TestThread(mainWindow, parent), sumFunction(sumFunction)
 		{}
 	void run() override;
-    void assert(int param, int result) const;
+    void imacAssert(int param, int result) const;
 private:
     std::function<int(int)> sumFunction;
 };
@@ -167,7 +167,7 @@ public:
         : TestThread(mainWindow, parent), powerFunction(powerFunction)
         {}
     void run() override;
-    void assert(int value, int power, int result) const;
+    void imacAssert(int value, int power, int result) const;
 private:
     std::function<int(int, int)> powerFunction;
 };
@@ -180,7 +180,7 @@ public:
         : TestThread(mainWindow, parent), fibonacciFunction(fibonacciFunction)
         {}
     void run() override;
-    void assert(int n, int result) const;
+    void imacAssert(int n, int result) const;
 private:
     std::function<int(int)> fibonacciFunction;
 };
@@ -205,7 +205,7 @@ public:
         : TestThread(mainWindow, parent), searchFunction(searchFunction)
         {}
     void run() override;
-    void assert(const Array& origin, const Array& result) const;
+    void imacAssert(const Array& origin, const Array& result) const;
 private:
     std::function<void(Array&, Array&, int, int)> searchFunction;
 };

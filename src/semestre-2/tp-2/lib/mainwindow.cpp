@@ -4,6 +4,7 @@
 #include <chrono>
 #include <thread>
 #include <stdexcept>
+#include <cmath>
 
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
@@ -382,7 +383,7 @@ void SumThread::run() {
 
         int n = qrand() % 10 + 5;
         int result = sumFunction(n);
-        assert(n, result);
+        imacAssert(n, result);
         _message = QString("Sum of 1..%1 is %2").arg(n).arg(result);
         success = true;
 	}
@@ -392,7 +393,7 @@ void SumThread::run() {
 	}
 }
 
-void SumThread::assert(int param, int result) const
+void SumThread::imacAssert(int param, int result) const
 {
     int sum=0;
     for (int i=0;i<=param;++i) {
@@ -416,7 +417,7 @@ void PowerThread::run() {
         int value = qrand() % 15;
         int n = qrand() % 8;
         int result = powerFunction(value, n);
-        assert(value, n, result);
+        imacAssert(value, n, result);
         _message = QString("Power %1 of %2 is %3").arg(value).arg(n).arg(result);
         success = true;
     }
@@ -426,7 +427,7 @@ void PowerThread::run() {
     }
 }
 
-void PowerThread::assert(int value, int param, int result) const
+void PowerThread::imacAssert(int value, int param, int result) const
 {
     int power=pow(value, param);
     if (result != power)
@@ -448,7 +449,7 @@ void FibonacciThread::run()
 
         int n = qrand() % 10 + 5;
         int result = fibonacciFunction(n);
-        assert(n, result);
+        imacAssert(n, result);
         _message = QString("Fibonacci %1 is %2").arg(n).arg(result);
         success = true;
     }
@@ -458,7 +459,7 @@ void FibonacciThread::run()
     }
 }
 
-void FibonacciThread::assert(int n, int result) const
+void FibonacciThread::imacAssert(int n, int result) const
 {
     int fibo1 = 0;
     int fibo2 = 1;
@@ -529,7 +530,7 @@ void AllEvensThread::run()
         Array& a = mainWindow->newRandomArray(n);
         Array& result = mainWindow->newArray(n);
         searchFunction(result, a, 0, a.size());
-        assert(a, result);
+        imacAssert(a, result);
         _message = QString("%1 evens found\nArray was:").arg(result.effectiveSize());
         _message.append(a.toString());
         success = true;
@@ -540,7 +541,7 @@ void AllEvensThread::run()
     }
 }
 
-void AllEvensThread::assert(const Array &origin, const Array &result) const
+void AllEvensThread::imacAssert(const Array &origin, const Array &result) const
 {
     for (int i=0; i<origin.size(); ++i)
     {
