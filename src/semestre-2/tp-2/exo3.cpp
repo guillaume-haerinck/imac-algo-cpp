@@ -11,6 +11,11 @@ int search(int value, Array& toSort, int size){
     NOTIFY_START("search", toSort, size) // notify the call of this function to the MainWindow
 
 	// recursiv search
+    if (value == toSort.get(size - 1)) {
+        return size - 1;
+    } else {
+        return search(value, toSort, size - 1);
+    }
 }
 
 int main(int argc, char *argv[])
