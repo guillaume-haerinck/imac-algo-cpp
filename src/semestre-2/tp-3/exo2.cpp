@@ -7,6 +7,7 @@ using std::size_t;
 
 void binarySearchAll(Array& array, int toSearch, int& indexMin, int& indexMax)
 {
+
 }
 
 int main(int argc, char *argv[])
