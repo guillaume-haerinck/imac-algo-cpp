@@ -1,8 +1,14 @@
-# imac-c
+# IMAC Algoritm
+
+# First semester
+
+Basic use of the C langage.
 
 # Second semester
 
 You need to install QT creator and run the .pro files with it. Works both on linux and windows.
+
+You can also use Visual Studio to edit and build your code with the QT Visual Studio Extension. But you need the QT lib installed on your computer.
 
 ## TP1 - Array sorting
 
