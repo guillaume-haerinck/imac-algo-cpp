@@ -42,7 +42,26 @@ You need to install QT creator and run the .pro files with it. Works both on lin
 - Post order travel
 - Insert number (with equilibrium)
 
-## TP4 - Hash tables
+## TP4 - Heap and Stack
+
+### Heap
+
+- Left child - **[DONE]**
+- Right chilld - **[DONE]**
+- Insert heap node
+- Heapify
+- Build heap
+- Heap sort
+- Char frequences
+
+### Huffman encoding
+
+- Heap
+- Dict
+- Encode
+- Decode
+
+## TP5 - Hash tables
 
 - Hash
 - Insert
