@@ -31,14 +31,6 @@ int binarySearch(Array& array, int toSearch)
         return -1;
 }
 
-// Recursive TODO
-/*
-int binarySearch(Array& array, int toSearch)
-{
-
-}
-*/
-
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);

@@ -14,24 +14,36 @@ You need to install QT creator and run the .pro files with it. Works both on lin
 
 ## TP2 - Recursivity
 
-- Sum
-- Power
-- Fibonacci
-- Search
+- Sum - **[DONE]**
+- Power - **[DONE]**
+- Fibonacci - **[DONE]**
+- Search - **[DONE]**
 - AllEvens
 - Mandelbrot
 - Quick sort
 - Merge sort
 
-## TP3
+## TP3 - Binary search
 
 ### Search
 
-- Binary Search **DONE**
+- Binary Search - **[DONE]**
 - Binary Search ALL
 
-#### Binary tree
+### Binary tree
 
 - Insert number
+- Height
+- Nodes count
+- Is leaf
+- All leaves
+- In order travel
+- Pre order travel
+- Post order travel
+- Insert number (with equilibrium)
 
-## TP4
+## TP4 - Hash tables
+
+- Hash
+- Insert
+- Contains
