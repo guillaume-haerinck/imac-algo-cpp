@@ -2,11 +2,13 @@
 
 # Second semester
 
+You need to install QT creator and run the .pro files with it. Works both on linux and windows.
+
 ## TP1 - Array sorting
 
-- Selection sort
-- Insertion sort
-- Bubble sort
+- Selection sort - **[DONE]**
+- Insertion sort - **[DONE]**
+- Bubble sort - **[DONE]**
 - Quick sort
 - Fusion sort
 
@@ -25,7 +27,7 @@
 
 ### Search
 
-- Binary Search [DONE]
+- Binary Search **DONE**
 - Binary Search ALL
 
 #### Binary tree

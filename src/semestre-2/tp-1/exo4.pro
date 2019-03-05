@@ -10,6 +10,7 @@ QT       += core gui widgets
 
 TARGET = Algorithm_TD1_exo4
 TEMPLATE = app
+CONFIG += c++11
 
 SOURCES += \
 		exo4.cpp \

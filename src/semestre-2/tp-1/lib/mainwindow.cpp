@@ -1,10 +1,13 @@
 #include "mainwindow.h"
 
+#include <time.h>
+#include <stdexcept>
+
 #include <QGraphicsItem>
 #include <QGraphicsWidget>
 
 MainWindow::MainWindow(std::function<void(Array&)> sortFunction, uint elementCount, QWidget *parent) :
-	QMainWindow(parent), workerThread(nullptr), timer(this)
+    QMainWindow(parent), timer(this), workerThread(nullptr)
 {
 	qsrand(time(nullptr));
 
@@ -22,7 +25,8 @@ MainWindow::MainWindow(std::function<void(Array&)> sortFunction, uint elementCou
 	statusItem.setDefaultTextColor(QColor(200,164,187));
 
     connect(&timer, SIGNAL(timeout()), this, SLOT(updateScene()));
-	arrays.reserve(40);
+	arrays.reserve(elementCount*2);
+	numberItems.reserve(elementCount*2);
     newRandomArray(elementCount);
 	this->resize(600, 600);
 
@@ -33,8 +37,8 @@ MainWindow::MainWindow(std::function<void(Array&)> sortFunction, uint elementCou
 	timer.start();
 }
 
-MainWindow::MainWindow(std::function<int (const Array &, const int)> findFunction, uint elementCount, QWidget *parent)
-	: QMainWindow(parent), workerThread(nullptr), timer(this)
+MainWindow::MainWindow(std::function<int (const Array &, const int)> findFunction)
+    : QMainWindow(nullptr), workerThread(nullptr), timer(this)
 {
 	qsrand(time(nullptr));
 
@@ -52,8 +56,9 @@ MainWindow::MainWindow(std::function<int (const Array &, const int)> findFunctio
 	statusItem.setDefaultTextColor(QColor(200,164,187));
 
 	connect(&timer, SIGNAL(timeout()), this, SLOT(updateScene()));
-	arrays.reserve(40);
-	newRandomArray(elementCount);
+	arrays.reserve(20);
+	numberItems.reserve(20);
+    newSortedRandomArray(20);
 	this->resize(600, 600);
 
 	workerThread = new FinderThread(this, findFunction, this);
@@ -69,10 +74,19 @@ Array &MainWindow::newRandomArray(uint size)
     Array& array = arrays.last();
     array.fillRandom(0,255);
 	numberItems.push_back(QVector<NumberGraphicsItem*>());
-	accessInfoItem.push_back(new QGraphicsTextItem ());
-    QVector<NumberGraphicsItem*>& items = numberItems.last();
-	toAdd.append(accessInfoItem.last());
 	this->dirty = true;
+	Array::registerArray(array);
+    return array;
+}
+
+Array &MainWindow::newSortedRandomArray(uint size)
+{
+    arrays.push_back(Array(size));
+    Array& array = arrays.last();
+    array.fillSortedRandom(0,500);
+    numberItems.push_back(QVector<NumberGraphicsItem*>());
+    this->dirty = true;
+	Array::registerArray(array);
     return array;
 }
 
@@ -81,10 +95,8 @@ Array &MainWindow::newArray(uint size)
     arrays.push_back(Array(size));
     Array& array = arrays.last();
 	numberItems.push_back(QVector<NumberGraphicsItem*>());
-	accessInfoItem.push_back(new QGraphicsTextItem ());
-	QVector<NumberGraphicsItem*>& items = numberItems.last();
-	toAdd.append(accessInfoItem.last());
 	this->dirty = true;
+	Array::registerArray(array);
     return array;
 }
 
@@ -97,7 +109,7 @@ void MainWindow::updateLayout()
 
 	int itemWidth = qBound(30, (int)(0.75f*view.width()/maxSize), 100);
 	this->scene.setSceneRect(0, 0, qMax<int>(itemWidth * maxSize * 1.2f, scene.width()),
-							 qMax<int>(itemWidth * numberItems.size() * 3, scene.height()));
+							 qMax<int>(itemWidth * numberItems.size() * 3.1, scene.height()));
 	int startX = (scene.width() - itemWidth * maxSize * 1.2f) * 0.5f;
 	int startY = (scene.height() - itemWidth * 3 * numberItems.size()) * 0.5f;
 
@@ -113,9 +125,13 @@ void MainWindow::updateLayout()
 							  startY + itemWidth,
 							  itemWidth,itemWidth);
 		}
-		accessInfoItem[j]->setPos(startX, startY);
-		accessInfoItem[j]->setFont(font);
-		accessInfoItem[j]->setDefaultTextColor(QColor(255,255,150));
+        if (accessInfoItem.size() > j)
+        {
+            accessInfoItem[j]->setPos(startX, startY);
+            accessInfoItem[j]->setFont(font);
+            accessInfoItem[j]->setDefaultTextColor(QColor(255,255,150));
+        }
+
 		startY += itemWidth * 3;
 		++j;
 	}
@@ -139,8 +155,8 @@ void MainWindow::closeEvent(QCloseEvent* e)
 {
     if (workerThread && workerThread->isRunning())
     {
-        workerThread->requestInterruption();
-        workerThread->wait(5000);
+        Array::instruction_duration = 1;
+        workerThread->wait(500);
     }
     QMainWindow::closeEvent(e);
 }
@@ -149,8 +165,8 @@ MainWindow::~MainWindow()
 {
     if (workerThread && workerThread->isRunning())
     {
-        workerThread->requestInterruption();
-        workerThread->wait(5000);
+        Array::instruction_duration = 1;
+        workerThread->wait(500);
     }
 }
 
@@ -169,6 +185,8 @@ void MainWindow::updateScene()
 	for (QVector<NumberGraphicsItem*>& items : numberItems)
     {
 		Array& array = arrays[j];
+		if (array.empty())
+			continue;
 		for (uint i=items.size(); i<array.size(); ++i)
 		{
 			items.push_back(new NumberGraphicsItem(array.__get__(i)));
@@ -185,7 +203,11 @@ void MainWindow::updateScene()
             else
                 items[i]->displayDefault();
         }
-
+        if (j >= accessInfoItem.size())
+        {
+            accessInfoItem.push_back(new QGraphicsTextItem ());
+            toAdd.append(accessInfoItem.last());
+        }
 		accessInfoItem[j]->setPlainText(accessInfoText.arg(QString::number(array.readAccessCount()))
 												 .arg(QString::number(array.writeAccessCount())));
         ++j;
@@ -204,11 +226,13 @@ void MainWindow::updateScene()
 
 void MainWindow::handleResult()
 {
-	if (workerThread)
+	if (workerThread && workerThread->isFinished())
 	{
 		if (workerThread->succeeded())
 		{
-			statusItem.setPlainText("Success: GG Gros");
+			statusItem.setPlainText(QString("Success: GG Gros\nTotal Read: %1\nTotal Write: %2")
+										.arg(QString::number(Array::totalReadAccess()))
+										.arg(QString::number(Array::totalWriteAccess())));
 			statusItem.setDefaultTextColor(QColor(100,230,100));
 		}
 		else
@@ -267,6 +291,8 @@ void NumberGraphicsItem::displayWrittenState()
 
 
 void SorterThread::run() {
+	if (terminated)
+		return;
 	try
 	{
 		Array& arrayToSort = mainWindow->mainArray();
@@ -277,6 +303,7 @@ void SorterThread::run() {
 	{
 		_error = QString(e.what());
 	}
+	terminated = true;
 }
 
 void SorterThread::assertSort(const Array& array) const
@@ -285,7 +312,7 @@ void SorterThread::assertSort(const Array& array) const
 		if (array.__get__(i) > array.__get__(i+1))
 		{
 			QString message("Sorting failed: %1 > %2");
-			throw std::runtime_error(message.arg(array.__get__(i))
+            throw std::runtime_error(message.arg(array.__get__(i))
 										.arg(array.__get__(i+1))
 										.toStdString());
 		}
@@ -329,4 +356,9 @@ bool FinderThread::succeeded() const
 const QString &FinderThread::errorMessage() const
 {
 	return _error;
+}
+
+bool TestThread::isTerminated() const
+{
+	return terminated;
 }

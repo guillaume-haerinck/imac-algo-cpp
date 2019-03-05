@@ -5,7 +5,6 @@
 MainWindow* w = nullptr;
 
 void insertionSort(Array& toSort){
-   // Array& secondArray = w->newArray(toSort.size());
    int key, j;
    for (uint i = 1; i < toSort.size(); i++) {
        key = toSort.get(i);

@@ -36,12 +36,15 @@ class TestThread : public QThread
 {
 public:
 	TestThread(MainWindow* mainWindow, QObject* parent=nullptr)
-		: QThread(parent), mainWindow(mainWindow) {}
+		: QThread(parent), mainWindow(mainWindow), terminated(false) {}
 	virtual bool succeeded() const = 0;
 	virtual const QString& errorMessage() const = 0;
 	virtual ~TestThread() {}
+
+	bool isTerminated() const;
 protected:
 	MainWindow* mainWindow;
+	bool terminated;
 };
 
 class MainWindow : public QMainWindow
@@ -50,10 +53,11 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(std::function<void(Array&)> sortFunction, uint elementCount=25, QWidget *parent=nullptr);
-	explicit MainWindow(std::function<int(const Array&, const int)> findFunction, uint elementCount=25, QWidget *parent=nullptr);
+    explicit MainWindow(std::function<int(const Array&, const int)> findFunction);
 
 	Array& mainArray() {return arrays[0];}
     Array& newRandomArray(uint size);
+    Array& newSortedRandomArray(uint size);
     Array& newArray(uint size);
 
 	void resizeEvent(QResizeEvent*);
@@ -61,7 +65,7 @@ public:
 
 	void updateLayout();
 
-	~MainWindow();
+    ~MainWindow();
 public slots:
     void updateScene();
 	void handleResult();

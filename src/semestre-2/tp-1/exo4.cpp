@@ -4,11 +4,23 @@
 
 MainWindow* w=nullptr;
 
+void recursivQuickSort(Array& toSort, int size)
+{
+	Array& lowerArray = w->newArray(size);
+	Array& greaterArray= w->newArray(size);
+
+	// Recursiv Quick sort
+}
+
+void quickSort(Array& toSort){
+	recursivQuickSort(toSort, toSort.size());
+}
+
 /* This function takes last element as pivot, places
    the pivot element at its correct position in sorted
     array, and places all smaller (smaller than pivot)
    to left of pivot and all greater elements to right
-   of pivot */
+   of pivot
 int partition (Array& toSort, int low, int high)
 {
     int pivot = toSort[high];    // pivot
@@ -27,17 +39,17 @@ int partition (Array& toSort, int low, int high)
     toSort.swap(i + 1, high);
     return (i + 1);
 }
+*/
 
 /* The main function that implements QuickSort
  arr[] --> Array to be sorted,
   low  --> Starting index,
-  high  --> Ending index */
+  high  --> Ending index
 void quickSort(Array& toSort, int low = 0, int high = 9)
 {
     if (low < high)
     {
-        /* pi is partitioning index, arr[p] is now
-           at right place */
+        // pi is partitioning index, arr[p] is nowat right place
         int pi = partition(toSort, low, high);
 
         // Separately sort elements before
@@ -46,13 +58,14 @@ void quickSort(Array& toSort, int low = 0, int high = 9)
         quickSort(toSort, pi + 1, high);
     }
 }
+        */
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
-	uint elementCount=10;
-	w = new MainWindow(quickSort, elementCount);
-	w->show();
+    QApplication a(argc, argv);
+	Array::instruction_duration = 200;
+	w = new MainWindow(quickSort, 15);
+    w->show();
 
-	return a.exec();
+    return a.exec();
 }

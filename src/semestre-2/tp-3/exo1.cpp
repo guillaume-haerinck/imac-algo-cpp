@@ -6,7 +6,6 @@ MainWindow* w = nullptr;
 using std::size_t;
 
 // Iterative
-/*
 int binarySearch(Array& array, int toSearch)
 {
     int l = 0;
@@ -31,13 +30,14 @@ int binarySearch(Array& array, int toSearch)
         // not present
         return -1;
 }
-*/
 
 // Recursive TODO
+/*
 int binarySearch(Array& array, int toSearch)
 {
 
 }
+*/
 
 int main(int argc, char *argv[])
 {
