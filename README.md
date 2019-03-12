@@ -25,7 +25,7 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 - Fibonacci - **[DONE]**
 - Search - **[DONE]**
 - AllEvens - **[DONE]**
-- Mandelbrot
+- Mandelbrot - **[DONE]**
 - Quick sort
 - Merge sort
 
