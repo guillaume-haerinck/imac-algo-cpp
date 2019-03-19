@@ -34,7 +34,7 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 ### Search
 
 - Binary Search - **[DONE]**
-- Binary Search ALL
+- Binary Search ALL - **[DONE]**
 
 ### Binary tree
 
