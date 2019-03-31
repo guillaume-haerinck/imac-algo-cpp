@@ -1,6 +1,7 @@
 #include "lib/mainwindow.h"
 #include <QApplication>
 #include <time.h>
+#include <queue>
 
 MainWindow* w = nullptr;
 using std::size_t;
@@ -11,30 +12,54 @@ struct BinarySearchTree : public BinaryTree
 	virtual ~BinarySearchTree() {}
 
     void insertNumber(int value) {
-		Node* currentNode = this;
-		Node* newNode = NULL;
+		Node* iterator = this;
+		Node* lastMatch = NULL;
 
-		while (currentNode != NULL) {
-			newNode = currentNode;
-			if (value < currentNode->value) {
-				currentNode = currentNode->left;
+		while (iterator != NULL) {
+			lastMatch = iterator;
+			if (value < iterator->value) {
+				iterator = iterator->left;
 			} else {
-				currentNode = currentNode->right;
+				iterator = iterator->right;
 			}
 		}
 
-		if (newNode == NULL) { // The tree is empty
-			newNode = createNode(value);
-		} else if (value < newNode->value) {
-			newNode->left = createNode(value);
+		if (lastMatch == NULL) { // The tree is empty
+			lastMatch = createNode(value);
+		} else if (value < lastMatch->value) {
+			lastMatch->left = createNode(value);
 		} else {
-			newNode->right = createNode(value);
+			lastMatch->right = createNode(value);
 		}
     }
 
-    uint height() const {
-		uint height = 1;
-		return height;
+    uint height() {
+		uint height = 0;
+		std::queue<Node*> q;
+		Node* root = this;
+		q.push(root);
+
+		while (true) {
+			int nodeCount = q.size();
+			if (nodeCount == 0) {
+				return height;
+			}
+			height++;
+
+			// Dequeue all nodes of current level 
+			// and Enqueue all nodes of next level 
+			while (nodeCount > 0) {
+				Node* node = q.front();
+				q.pop();
+				if (node->left != NULL) {
+					q.push(node->left);
+				}
+				if (node->right != NULL) {
+					q.push(node->right);
+				}
+				nodeCount--;
+			}
+		}
 	}
 
     uint nodesCount() const {
