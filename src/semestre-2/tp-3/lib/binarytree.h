@@ -15,7 +15,7 @@ struct Node
 	};
 
 	virtual uint height() {return 0;}
-	virtual uint nodesCount() const {return 0;}
+	virtual uint nodesCount() {return 0;}
 	virtual bool isLeaf() const {return false;}
 	virtual void allLeaves(Node*[], uint&) {return;}
 	virtual void inorderTravel(Node*[], uint&) {return;}

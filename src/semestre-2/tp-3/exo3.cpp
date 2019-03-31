@@ -62,8 +62,24 @@ struct BinarySearchTree : public BinaryTree
 		}
 	}
 
-    uint nodesCount() const {
+    uint nodesCount() {
 		uint count = 1;
+		std::queue<Node*> q;
+		Node* root = this;
+		q.push(root);
+
+		while (!q.empty()) {
+			Node* temp = q.front();
+			q.pop();
+			if (temp->left != NULL) {
+				q.push(temp->left);
+				count++;
+			}	
+			if (temp->right != NULL) {
+				q.push(temp->right);
+				count++;
+			}
+		}
 		return count;
 	}
 

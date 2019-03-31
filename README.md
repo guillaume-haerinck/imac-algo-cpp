@@ -39,7 +39,7 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 
 - Insert number - **[DONE]**
 - Height - **[DONE]**
-- Nodes count
+- Nodes count - **[DONE]**
 - Is leaf
 - All leaves
 - In order travel
