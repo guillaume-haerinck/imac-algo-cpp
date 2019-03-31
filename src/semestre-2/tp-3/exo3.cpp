@@ -10,33 +10,26 @@ struct BinarySearchTree : public BinaryTree
     BinarySearchTree(int value = 0) : BinaryTree(value) {}
 	virtual ~BinarySearchTree() {}
 
-    // https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
     void insertNumber(int value) {
-        if (r >= l) {
-            int mid = l + (r - l) / 2;
+		Node* currentNode = this;
+		Node* newNode = NULL;
 
-            // If the element is present at the middle
-            // itself
-            if (arr[mid] == x)
-                right = createNode(value);
+		while (currentNode != NULL) {
+			newNode = currentNode;
+			if (value < currentNode->value) {
+				currentNode = currentNode->left;
+			} else {
+				currentNode = currentNode->right;
+			}
+		}
 
-            // If element is smaller than mid, then
-            // it can only be present in left subarray
-            if (arr[mid] > x)
-                return binarySearch(arr, l, mid - 1, x);
-
-            // Else the element can only be present
-            // in right subarray
-            return binarySearch(arr, mid + 1, r, x);
-        }
-
-        // We reach here when element is not
-        // present in array
-        if (value >= this->value) {
-            right = createNode(value);
-        } else {
-            left = createNode(value);
-        }
+		if (newNode == NULL) { // The tree is empty
+			newNode = createNode(value);
+		} else if (value < newNode->value) {
+			newNode->left = createNode(value);
+		} else {
+			newNode->right = createNode(value);
+		}
     }
 
     uint height() const {
@@ -70,7 +63,7 @@ struct BinarySearchTree : public BinaryTree
 	}
 
     Node* find(int value) {
-
+		return nullptr;
 	}
 };
 

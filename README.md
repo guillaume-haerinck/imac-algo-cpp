@@ -37,7 +37,7 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 
 ### Binary tree
 
-- Insert number
+- Insert number - **[DONE]**
 - Height
 - Nodes count
 - Is leaf

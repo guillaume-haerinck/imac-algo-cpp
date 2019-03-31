@@ -5,25 +5,24 @@
 MainWindow* w = nullptr;
 using std::size_t;
 
-void binarySearchAll(Array& array, int toSearch, int& indexMin, int& indexMax)
-{
+void binarySearchAll(Array& array, int toSearch, int& indexMin, int& indexMax) {
     int l = 0;
     int r = array.size() - 1;
     bool bExist = false;
     while (l <= r) {
-            int m = l + (r - l) / 2;
+        int m = l + (r - l) / 2;
 
-            // Check if x is present at mid
-            if (array.get(m) == toSearch)
-                bExist = true;
+        // Check if x is present at mid
+        if (array.get(m) == toSearch)
+            bExist = true;
 
-            // If x greater, ignore left half
-            if (array.get(m) < toSearch)
-                l = m + 1;
+        // If x greater, ignore left half
+        if (array.get(m) < toSearch)
+            l = m + 1;
 
-            // If x is smaller, ignore right half
-            else
-                r = m - 1;
+        // If x is smaller, ignore right half
+        else
+            r = m - 1;
     }
 
     if (indexMax > array.size() - 1) { indexMax = array.size() - 1; }
