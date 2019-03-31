@@ -15,7 +15,7 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 - Selection sort - **[DONE]**
 - Insertion sort - **[DONE]**
 - Bubble sort - **[DONE]**
-- Quick sort
+- Quick sort - **[DONE]**
 - Fusion sort
 
 ## TP2 - Recursivity
@@ -26,7 +26,6 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 - Search - **[DONE]**
 - AllEvens - **[DONE]**
 - Mandelbrot - **[DONE]**
-- Quick sort - **[DONE]**
 - Merge sort
 
 ## TP3 - Binary search

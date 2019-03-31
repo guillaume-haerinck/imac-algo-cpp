@@ -2,13 +2,13 @@
 #include <QApplication>
 #include <time.h>
 
-MainWindow* w=nullptr;
+MainWindow* w = nullptr;
 
-int partition(Array& toSort, int begin, int end){
+int partition(Array& toSort, int begin, int end) {
     int pivot = toSort[end];
     int i = begin;
-    for(int j=begin;j<end; j++){
-        if(toSort[j]<pivot){
+    for (int j=begin; j<end; j++) {
+        if (toSort[j] < pivot){
             toSort.swap(i, j);
             i=i+1;
         }
@@ -17,16 +17,16 @@ int partition(Array& toSort, int begin, int end){
     return i;
 }
 
-void quickSortAux(Array& toSort , int begin , int end){
-    if( begin < end ){
+void quickSortAux(Array& toSort, int begin, int end){
+    if (begin < end) {
         int p = partition(toSort, begin, end);
         quickSortAux(toSort, begin, p-1);
         quickSortAux(toSort, p+1, end);
     }
 }
 
-void quickSort(Array& toSort){
-    quickSortAux(toSort, 0, toSort.size()-1);
+void quickSort(Array& toSort) {
+    quickSortAux(toSort, 0, toSort.size() - 1);
 }
 
 int main(int argc, char *argv[])

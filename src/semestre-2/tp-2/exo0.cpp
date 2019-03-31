@@ -5,19 +5,15 @@
 
 MainWindow* w = nullptr;
 
-int sum(int n)
-{
-    NOTIFY_START("sum", n) // notify the call of this function to the MainWindow
-
-    if (n > 1)
-    {
+int sum(int n) {
+    NOTIFY_START("sum", n)
+    if (n > 1) {
         return(n + sum(n-1));
     }
     return(n);
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 	MainWindow::instruction_duration = 200;
     w = new SumWindow(sum);

@@ -7,7 +7,7 @@ MainWindow* w = nullptr;
 
 int power(int value, int n)
 {
-    NOTIFY_START("power", value, n) // notify the call of this function to the MainWindow
+    NOTIFY_START("power", value, n)
 
     if (n != 0) {
         return (value * power(value, n - 1));

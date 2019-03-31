@@ -5,19 +5,16 @@
 
 MainWindow* w = nullptr;
 
-int fibonacci(int n)
-{
-    NOTIFY_START("fibonacci", n) // notify the call of this function to the MainWindow
-
-    if((n == 1)||(n == 0)) {
+int fibonacci(int n) {
+    NOTIFY_START("fibonacci", n)
+    if ((n == 1) || (n == 0)) {
         return(n);
     } else {
         return(fibonacci(n - 1) + fibonacci(n - 2));
     }
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow::instruction_duration = 20;
     w = new FibonacciWindow(fibonacci);
