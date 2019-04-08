@@ -84,11 +84,33 @@ struct BinarySearchTree : public BinaryTree
 	}
 
     bool isLeaf() const {
-		return false;
+		if (this->left == NULL && this->right == NULL) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
     void allLeaves(Node* leaves[], uint& leavesCount) {
+		std::queue<Node*> q;
+		Node* root = this;
+		q.push(root);
 
+		while (!q.empty()) {
+			Node* temp = q.front();
+			q.pop();
+			
+			if (temp->left != NULL) {
+				q.push(temp->left);
+			}
+			if (temp->right != NULL) {
+				q.push(temp->right);
+			}
+			if (temp->left == NULL && temp->right == NULL) {
+				leaves[leavesCount] = this;
+				leavesCount++;
+			}
+		}
 	}
 
     void inorderTravel(Node* nodes[], uint& nodesCount) {
