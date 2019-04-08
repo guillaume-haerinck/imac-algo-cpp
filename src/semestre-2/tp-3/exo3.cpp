@@ -3,6 +3,7 @@
 #include <time.h>
 #include <queue>
 #include <stack>
+#include <unordered_set>
 
 MainWindow* w = nullptr;
 using std::size_t;
@@ -143,6 +144,7 @@ struct BinarySearchTree : public BinaryTree
 		}
 	}
 
+	// FIXME
     void preorderTravel(Node* nodes[], uint& nodesCount) {
 		std::stack<Node*> s;
 		Node* curr = this;
@@ -169,8 +171,25 @@ struct BinarySearchTree : public BinaryTree
 		}
 	}
 
+	// FIXME
     void postorderTravel(Node* nodes[], uint& nodesCount) {
+		Node* temp = this;
+		std::unordered_set<Node*> visited;
 
+		while (temp && visited.find(temp) == visited.end()) {
+			if (temp->left && visited.find(temp->left) == visited.end()) {
+				// Visited left subtree 
+				temp = temp->left;
+			} else if (temp->right && visited.find(temp->right) == visited.end()) {
+				// Visited right subtree 
+				temp = temp->right;
+			} else {
+				nodes[nodesCount] = temp;
+				nodesCount++;
+				visited.insert(temp);
+				temp = this;
+			}
+		}
 	}
 
     Node* find(int value) {
