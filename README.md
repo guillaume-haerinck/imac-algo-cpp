@@ -40,11 +40,12 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 - Insert number - **[DONE]**
 - Height - **[DONE]**
 - Nodes count - **[DONE]**
-- Is leaf
-- All leaves
-- In order travel
+- Is leaf - **[DONE]**
+- All leaves - **[DONE]**
+- In order travel - **[DONE]**
 - Pre order travel
 - Post order travel
+- Search - **[DONE]**
 - Insert number (with equilibrium)
 
 ## TP4 - Heap and Stack
