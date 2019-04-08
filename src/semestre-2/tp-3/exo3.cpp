@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <time.h>
 #include <queue>
+#include <stack>
 
 MainWindow* w = nullptr;
 using std::size_t;
@@ -114,7 +115,32 @@ struct BinarySearchTree : public BinaryTree
 	}
 
     void inorderTravel(Node* nodes[], uint& nodesCount) {
+		std::stack<Node*> s;
+		Node* curr = this;
 
+		while (curr != NULL || s.empty() == false) {
+			/* Reach the left most Node of the
+			   curr Node */
+			while (curr != NULL) {
+				/* place pointer to a tree node on
+				   the stack before traversing
+				  the node's left subtree */
+				s.push(curr);
+				curr = curr->left;
+			}
+
+			/* Current must be NULL at this point */
+			curr = s.top();
+			s.pop();
+
+			nodes[nodesCount] = curr;
+			nodesCount++;
+
+			/* we have visited the node and its
+			   left subtree.  Now, it's right
+			   subtree's turn */
+			curr = curr->right;
+		}
 	}
 
     void preorderTravel(Node* nodes[], uint& nodesCount) {
