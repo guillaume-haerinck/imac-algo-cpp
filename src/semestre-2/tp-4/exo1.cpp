@@ -6,6 +6,7 @@ MainWindow* w = nullptr;
 
 // Un tas, donc on renvoie element du haut
 // https://www.fluentcpp.com/2018/03/13/heaps-priority-queues-stl-part-1/
+// https://www.geeksforgeeks.org/binary-heap/
 int Heap::leftChild(int nodeIndex)
 {
     return (nodeIndex + 1) * 2 - 1;

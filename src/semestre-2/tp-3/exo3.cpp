@@ -147,16 +147,16 @@ struct BinarySearchTree : public BinaryTree
 	// FIXME
     void preorderTravel(Node* nodes[], uint& nodesCount) {
 		std::stack<Node*> s;
-		Node* curr = this;
+		s.push(this);
 
 		/* Pop all items one by one. Do following for every popped item
-		   a) print it
+		   a) add it to the results
 		   b) push its right child
 		   c) push its left child
 		Note that right child is pushed first so that left is processed first */
 		while (s.empty() == false) {
 			// Pop the top item from stack and print it
-			curr = s.top();
+			Node* curr = s.top();
 			nodes[nodesCount] = curr;
 			nodesCount++;
 			s.pop();
@@ -190,6 +190,7 @@ struct BinarySearchTree : public BinaryTree
 				temp = this;
 			}
 		}
+		return;
 	}
 
     Node* find(int value) {
