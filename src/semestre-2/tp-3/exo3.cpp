@@ -144,7 +144,29 @@ struct BinarySearchTree : public BinaryTree
 	}
 
     void preorderTravel(Node* nodes[], uint& nodesCount) {
+		std::stack<Node*> s;
+		Node* curr = this;
 
+		/* Pop all items one by one. Do following for every popped item
+		   a) print it
+		   b) push its right child
+		   c) push its left child
+		Note that right child is pushed first so that left is processed first */
+		while (s.empty() == false) {
+			// Pop the top item from stack and print it
+			curr = s.top();
+			nodes[nodesCount] = curr;
+			nodesCount++;
+			s.pop();
+
+			// Push right and left children of the popped node to stack 
+			if (curr->right) {
+				s.push(curr->right);
+			}
+			if (curr->left) {
+				s.push(curr->left);
+			}
+		}
 	}
 
     void postorderTravel(Node* nodes[], uint& nodesCount) {
@@ -152,7 +174,24 @@ struct BinarySearchTree : public BinaryTree
 	}
 
     Node* find(int value) {
-		return nullptr;
+		std::queue<Node*> q;
+		Node* root = this;
+		q.push(root);
+
+		while (!q.empty()) {
+			Node* temp = q.front();
+			q.pop();
+			if (temp->left != NULL) {
+				q.push(temp->left);
+			}
+			if (temp->right != NULL) {
+				q.push(temp->right);
+			}
+			if (temp->value == value) {
+				return temp;
+			}
+		}
+		return nullptr; // Not Found
 	}
 };
 
