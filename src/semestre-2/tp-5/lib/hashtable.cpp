@@ -85,7 +85,6 @@ string &HashTable::get(const uint index)
 {
 	if(index >= _data.size())
 		throw std::out_of_range("get(): Given index is out of bound !");
-	std::this_thread::sleep_for(std::chrono::milliseconds(MainWindow::instruction_duration));
 	return _data[index];
 }
 

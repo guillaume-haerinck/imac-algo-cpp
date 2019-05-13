@@ -40,10 +40,23 @@ int hash(HashTable& t, string s)
 
 void HashTableInsertThread::assertHashTable(std::vector<string>& content)
 {
+	string s;
+	bool in_table = false;
+	int index;
+
 	for (int i=0; i<content.size(); ++i)
 	{
-		string s = content[i];
-		int index = hash(table, s);
+		in_table = false;
+		s = content[i];
+		for (int j=0; j<table.size(); ++j)
+			if (table[i] == s)
+			{
+				in_table = true;
+				break;
+			}
+		if (!in_table)
+			return;
+		index = hash(table, s);
 		if (index != table.hash(s) || table[index] != s)
 		{
 			QString message("%1 is not at %2, ' %3 ' found instead !");
@@ -109,4 +122,9 @@ void HashWindow::handleResult()
 		workerThread = *currentThread;
 		connect(workerThread, SIGNAL(finished()), this, SLOT(handleResult()));
 	}
+}
+
+void HashWindow::updateScene()
+{
+	Base::updateScene();
 }

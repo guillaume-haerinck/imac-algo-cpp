@@ -1,19 +1,49 @@
-#include "lib/mainwindow.h"
 #include <QApplication>
 #include <time.h>
 #include <stdio.h>
 
-MainWindow* w = nullptr;
 using std::size_t;
 using std::string;
 
+int hash(string key)
+{
+	return 0;
+}
+
+struct Node
+{
+	Node(string key, int value)
+	{
+		this->key = key;
+		this->value = value;
+		this->key_hash = hash(key);
+
+		this->left = this->right = nullptr;
+	}
+
+	void insertNode(Node* node)
+	{
+
+	}
+
+	void insertNode(string key, int value)
+	{
+		this->insertNode(new Node(key, value));
+	}
+
+	string key;
+	int key_hash;
+
+	int value;
+
+	Node* left;
+	Node* right;
+};
+
 struct Map
 {
-	Map() {}
-
-	int hash(string s)
-	{
-		return 0;
+	Map() {
+		this->root = nullptr;
 	}
 
 	void insert(string key, int value)
@@ -26,12 +56,7 @@ struct Map
 		return 0;
 	}
 
-	// int* key_array;
-	// int* value_array;
-
-	// or
-
-	// Node* root;
+	Node* root;
 };
 
 

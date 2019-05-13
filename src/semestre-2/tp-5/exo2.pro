@@ -14,15 +14,5 @@ CONFIG += c++11
 
 SOURCES += \
 		exo2.cpp \
-        lib/mainwindow.cpp \
-		lib/array.cpp \
-    lib/binarytree.cpp \
-    lib/heap.cpp \
-	lib/thread.cpp
 
 HEADERS += \
-        lib/mainwindow.h \
-		lib/array.h \
-    lib/binarytree.h \
-    lib/heap.h \
-	lib/thread.h

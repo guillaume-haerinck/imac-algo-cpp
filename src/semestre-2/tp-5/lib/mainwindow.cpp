@@ -12,6 +12,8 @@
 #include <QGraphicsWidget>
 #include <QPair>
 
+#include "array.h"
+
 
 unsigned long MainWindow::instruction_duration = 1000;
 
@@ -49,8 +51,8 @@ void MainWindow::initialize()
 
 Array &MainWindow::newRandomArray(uint size)
 {
-	arrays.push_back(Array(size));
-	Array& array = arrays.last();
+	arrays.push_back(new Array(size));
+	Array& array = *arrays.last();
 	array.fillRandom(0,255);
 	this->dirty = true;
 	std::this_thread::sleep_for(std::chrono::milliseconds(MainWindow::instruction_duration / 3));
@@ -59,32 +61,37 @@ Array &MainWindow::newRandomArray(uint size)
 
 Array &MainWindow::newSortedRandomArray(uint size)
 {
-	arrays.push_back(Array(size));
-	Array& array = arrays.last();
+	arrays.push_back(new Array(size));
+	Array& array = *arrays.last();
 	array.fillSortedRandom(0,500);
-	this->dirty = true;
-	std::this_thread::sleep_for(std::chrono::milliseconds(MainWindow::instruction_duration / 3));
+	std::this_thread::sleep_for(std::chrono::milliseconds(MainWindow::instruction_duration / 2));
 	return array;
 }
 
 Array &MainWindow::newArray(uint size)
 {
-	arrays.push_back(Array(size));
-	Array& array = arrays.last();
+	arrays.push_back(new Array(size));
+	Array& array = *arrays.last();
+	std::this_thread::sleep_for(std::chrono::milliseconds(MainWindow::instruction_duration / 2));
 	this->dirty = true;
-	std::this_thread::sleep_for(std::chrono::milliseconds(MainWindow::instruction_duration / 3));
 	return array;
 }
 
 void MainWindow::updateLayout()
 {
-	int itemWidth = qMax<int>(50, width() * 0.01f);
-	int maxX=0, maxY=0;
-	updateStatusItem(itemWidth);
-	updateBackground();
-	updateNumberItems(itemWidth, maxX, maxY);
 
-	this->scene.setSceneRect(0, 0, qMax(width(), maxX), qMax(height(),maxY+itemWidth * 2));
+	if (dirty)
+	{
+		int itemWidth = qMax<int>(50, width() * 0.01f);
+		int maxX=0, maxY=0;
+
+		updateStatusItem(itemWidth);
+		updateBackground();
+		updateNumberItems(itemWidth, maxX, maxY);
+
+		this->scene.setSceneRect(0, 0, qMax(width(), maxX), qMax(height(),maxY+itemWidth * 2));
+	}
+
 	this->dirty=false;
 }
 
@@ -99,12 +106,11 @@ void MainWindow::updateBackground()
 
 int MainWindow::updateNumberItems(int itemWidth, int& maxY, int& maxX)
 {
-	maxY = scene.height() * 0.1f;
+	maxY = scene.height() * 0.2f;
 	maxX = 0;
 	for (QVector<NumberGraphicsItem*> items : numberItems)
 	{
-		int startX = qMax((50 + scene.width() - itemWidth * 1.5f * items.size()) * 0.5,
-							0.05 * scene.width());
+		int startX = 0.05 * width();
 		for (NumberGraphicsItem* item : items)
 		{
 			item->setRect(startX, maxY, itemWidth, itemWidth);
@@ -206,7 +212,7 @@ void MainWindow::updateScene()
 
 	while (numberItems.size() < arrays.size())
 	{
-		Array& array = arrays[numberItems.size()];
+		Array& array = *arrays[numberItems.size()];
 		numberItems.push_back(QVector<NumberGraphicsItem*>());
 		for (uint i=0; i < array.size(); ++i)
 		{
@@ -218,14 +224,20 @@ void MainWindow::updateScene()
 	int i=0;
 	for (QVector<NumberGraphicsItem*>& numbers : numberItems)
 	{
-		Array& array = arrays[i];
+		Array& array = *arrays[i];
 		for (uint j=0; j < array.size(); ++j)
 		{
+			if (j >= numbers.size())
+			{
+				numbers.push_back(new NumberGraphicsItem(array.__get__(j)));
+				// toAdd.push_back(numbers[j]);
+				dirty = true;
+			}
 			NumberGraphicsItem* item = numbers[j];
 			if (item->number() != array.__get__(j))
 			{
-				dirty = true;
 				item->setNumber(array.__get__(j));
+				dirty = true;
 			}
 			if (array.hasBeenReadenAt(j))
 				item->displayReadenState();
@@ -322,6 +334,8 @@ void NumberGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
 	painter->drawText(this->rect(), Qt::AlignCenter, text);
 }
 
+QColor NumberGraphicsItem::baseColor(150, 220, 183);
+
 void NumberGraphicsItem::displayDefault()
 {
 	displayDefault(false);
@@ -332,7 +346,7 @@ void NumberGraphicsItem::displayDefault(bool force)
 	if (state == DEFAULT && !force)
 		return;
 	QPen pen(this->pen());
-	pen.setColor(QColor(150,220,183).lighter(60+80.f*_number/255.f));
+	pen.setColor(baseColor.lighter(60+80.f*_number/255.f));
 	setPen(pen);
 	state = DEFAULT;
 }

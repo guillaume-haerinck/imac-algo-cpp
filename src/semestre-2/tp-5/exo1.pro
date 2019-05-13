@@ -16,8 +16,6 @@ SOURCES += \
 		exo1.cpp \
         lib/mainwindow.cpp \
 		lib/array.cpp \
-    lib/binarytree.cpp \
-    lib/heap.cpp \
     lib/thread.cpp \
     lib/TP5.cpp \
     lib/hashtable.cpp
@@ -25,8 +23,6 @@ SOURCES += \
 HEADERS += \
         lib/mainwindow.h \
 		lib/array.h \
-    lib/binarytree.h \
-    lib/heap.h \
     lib/thread.h \
     lib/TP5.h \
     lib/hashtable.h

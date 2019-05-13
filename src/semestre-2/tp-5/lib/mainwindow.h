@@ -15,8 +15,9 @@
 #include <QTimer>
 
 #include "thread.h"
-#include "array.h"
 
+class AbstractArray;
+class Array;
 
 using std::size_t;
 
@@ -33,6 +34,8 @@ public:
 	void displayReadenState();
 	void displayWrittenState();
 	int number() const;
+
+	static QColor baseColor;
 
 private:
 	enum State
@@ -58,7 +61,7 @@ public:
 
 	explicit MainWindow(QWidget* parent=nullptr);
 
-	Array& mainArray() {return arrays[0];}
+	Array& mainArray() {return *arrays[0];}
 	Array& newRandomArray(uint size);
 	Array& newSortedRandomArray(uint size);
 	Array& newArray(uint size);
@@ -68,7 +71,7 @@ public:
 
 	void setBackground(QImage* image);
 
-	void updateLayout();
+	virtual void updateLayout();
 	void updateStatusItem(int itemWidth);
 	void updateBackground();
 	int updateNumberItems(int itemWidth, int &maxY, int &maxX);
@@ -79,7 +82,7 @@ public:
 
 	~MainWindow();
 public slots:
-	void updateScene();
+	virtual void updateScene();
 	virtual void handleResult();
 
 private:
@@ -91,7 +94,7 @@ private:
 	QVector<QVector<NumberGraphicsItem*> > numberItems;
 	QVector<QGraphicsTextItem *> accessInfoItem;
 	QGraphicsTextItem statusItem;
-	QVector<Array> arrays;
+	QVector<Array*> arrays;
 
 	QTimer timer;
 
