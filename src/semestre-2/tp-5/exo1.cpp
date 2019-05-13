@@ -6,17 +6,30 @@ MainWindow* w = nullptr;
 
 int HashTable::hash(std::string element)
 {
-	return 0;
+	int hashValue = element[0];
+
+	if (hashValue > size()) {
+		return hashValue % size();
+	} else {
+		return hashValue;
+	}
 }
 
 void HashTable::insert(std::string element)
 {
-	return;
+	set(hash(element), element);
 }
 
 bool HashTable::contains(std::string element)
 {
-	return false;
+	int hashValue = hash(element);
+	std::string data = get(hashValue);
+
+	if (data == element) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 int main(int argc, char *argv[])
