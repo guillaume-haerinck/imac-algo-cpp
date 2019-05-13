@@ -11,26 +11,79 @@ using std::string;
 
 void HuffmanHeap::insertHeapNode(int heapSize, char c, int frequences)
 {
-
+	int i = heapSize;
+	this->set(i, HuffmanNode(c, frequences));
+	while (i > 0 && (this->get(i).value > this->get(i / 2).value)) {
+		swap(i, i / 2);
+		i = i / 2;
+	}
 }
 
 void HuffmanNode::insertNode(HuffmanNode* node) {
-
+	if (this->value <= this->value / 3) {
+		if (this->right == NULL) {
+			this->right = node;
+		}
+		else {
+			if (this->right->isLeaf()) {
+				HuffmanNode* tmp = new HuffmanNode();
+				tmp->right = this->right;
+				tmp->left = node;
+				this->right = tmp;
+			}
+			else {
+				this->right->insertNode(node);
+			}
+		}
+	} else {
+		if (this->left == NULL) {
+			this->left = node;
+		}
+		else {
+			if (this->left->isLeaf()) {
+				HuffmanNode* tmp = new HuffmanNode();
+				tmp->left = this->left;
+				tmp->right = node;
+				this->left = tmp;
+			}
+			else {
+				this->left->insertNode(node);
+			}
+		}
+	}
 }
 
 void HuffmanNode::processCodes(std::string baseCode)
 {
-
+	if (this->left != NULL) {
+		this->left->processCodes(baseCode + '0');
+	}
+	if (this->right != NULL) {
+		this->right->processCodes(baseCode + '1');
+	}
+	if (this->isLeaf()) {
+		this->code = baseCode;
+	}
 }
 
 void charFrequences(string data, Array& frequences)
 {
+	for (int i = 0; i < frequences.size(); i++) {
+		frequences[i] = 0;
+	}
 
+	for (int c = 0; c < data.size(); c++) {
+		frequences[data[c]]++;
+	}
 }
 
 void huffmanHeap(Array& frequences, HuffmanHeap& heap)
 {
-
+	for (int index = 0; index < heap.size(); index++) {
+		if (frequences[index] > 0) {
+			heap.insertHeapNode(index, index, frequences[index]);
+		}
+	}
 }
 
 void huffmanDict(HuffmanHeap& heap, HuffmanNode*& dict)
@@ -39,20 +92,26 @@ void huffmanDict(HuffmanHeap& heap, HuffmanNode*& dict)
 	dict->left = &heap[0];
 	dict->right = &heap[1];
 
-
+	for (int i = 2; i < heap.size(); i++) {
+		dict->insertNode(&heap[i]);
+	}
 }
 
 string huffmanEncode(HuffmanNode** characters, string toEncode)
 {
-	string encoded= "";
-
+	string encoded = "";
+	for (int i = 0; i < toEncode.size(); i++) {
+		encoded += (characters[toEncode[i]])->code;
+	}
 	return encoded;
 }
 
 string huffmanDecode(HuffmanNode* dict, string toDecode)
 {
-	string decoded= "";
-
+	string decoded = "";
+	for (int i = 0; i < toDecode.size(); i++) {
+		decoded += (dict[toDecode[i]]).value;
+	}
 	return decoded;
 }
 
