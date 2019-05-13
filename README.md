@@ -69,6 +69,6 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 
 ## TP5 - Hash tables
 
-- Hash
-- Insert
-- Contains
+- Hash - **[DONE]**
+- Insert - **[DONE]**
+- Contains - **[DONE]**
