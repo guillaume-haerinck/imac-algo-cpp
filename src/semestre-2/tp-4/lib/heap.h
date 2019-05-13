@@ -3,40 +3,29 @@
 
 #include "array.h"
 
+using std::size_t;
 
-class Heap : public Array
+
+class BaseHeap : public Array
 {
 public:
-	Heap(uint size=100);
-	Heap(const Heap& other);
-	Heap(const std::vector<int>& other);
+	BaseHeap(size_t size=100);
+	BaseHeap(const BaseHeap& other);
+	BaseHeap(const std::vector<int>& other);
 
-	int leftChild(int nodeIndex);
+	virtual ~BaseHeap() {}
 
-	int rightChild(int nodeIndex);
+	virtual int leftChild(int nodeIndex);
 
-	void insertHeapNode(int heapSize, int value);
+	virtual int rightChild(int nodeIndex);
 
-	void heapify(int heapSize, int nodeIndex);
+	virtual void insertHeapNode(int heapSize, int value);
 
-	void buildHeap(Array& numbers);
+	virtual void heapify(int heapSize, int nodeIndex);
 
-	void heapSort();
-};
+	virtual void buildHeap(Array& numbers);
 
-class HuffmanHeap : public Heap
-{
-public:
-	HuffmanHeap(uint size=100);
-	HuffmanHeap(const HuffmanHeap& other);
-
-	char getCharacter(const uint i);
-	void setCharacter(const uint i, char c);
-
-	void resize(uint size);
-
-private:
-	std::vector<char> characters;
+	virtual void heapSort();
 };
 
 #endif // HEAP_H

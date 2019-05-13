@@ -14,13 +14,19 @@ CONFIG += c++11
 
 SOURCES += \
 		exo1.cpp \
-        lib/mainwindow.cpp \
+		lib/mainwindow.cpp \
+		lib/thread.cpp \
 		lib/array.cpp \
-    lib/binarytree.cpp \
-    lib/heap.cpp
+		lib/binarytree.cpp \
+		lib/heap.cpp \
+		lib/tp3.cpp \
+                lib/TP4.cpp \
 
 HEADERS += \
-        lib/mainwindow.h \
+		lib/mainwindow.h \
+		lib/thread.h \
 		lib/array.h \
-    lib/binarytree.h \
-    lib/heap.h
+		lib/binarytree.h \
+		lib/heap.h \
+		lib/tp3.h \
+                lib/TP4.h \

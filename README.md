@@ -62,10 +62,10 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 
 ### Huffman encoding
 
-- Heap
-- Dict
-- Encode
-- Decode
+- Heap - **[DONE]**
+- Dict - **[DONE]**
+- Encode - **[DONE]**
+- Decode - **[DONE]**
 
 ## TP5 - Hash tables
 

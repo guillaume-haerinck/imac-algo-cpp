@@ -1,8 +1,35 @@
+#include "lib/TP4.h"
+
 #include "lib/mainwindow.h"
 #include <QApplication>
 #include <time.h>
+#include <stdio.h>
 
 MainWindow* w = nullptr;
+using std::size_t;
+using std::string;
+
+void HuffmanHeap::insertHeapNode(int heapSize, char c, int frequences){}
+
+void HuffmanNode::insertNode(HuffmanNode* node) {}
+
+void HuffmanNode::processCodes(std::string baseCode){}
+
+void charFrequences(string data, Array& frequences){}
+
+void huffmanHeap(Array& frequences, HuffmanHeap& heap){}
+
+Heap::Heap(size_t size)
+	: BaseHeap(size)
+{}
+
+Heap::Heap(const Heap &other)
+	: BaseHeap(other)
+{}
+
+Heap::Heap(const std::vector<int> &other)
+	: BaseHeap(other)
+{}
 
 int Heap::leftChild(int nodeIndex)
 {
@@ -67,7 +94,7 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 	MainWindow::instruction_duration = 50;
-	w = new HeapWindow();
+	w = new HeapWindow<Heap>();
 	w->show();
 
 	return a.exec();

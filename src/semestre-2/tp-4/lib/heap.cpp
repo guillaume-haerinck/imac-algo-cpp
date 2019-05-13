@@ -1,40 +1,28 @@
 #include "heap.h"
 
-Heap::Heap(uint size)
+BaseHeap::BaseHeap(size_t size)
 	: Array(size)
 {}
 
-Heap::Heap(const Heap &other)
+BaseHeap::BaseHeap(const BaseHeap &other)
 	: Array(other)
 {}
 
-Heap::Heap(const std::vector<int> &other)
+BaseHeap::BaseHeap(const std::vector<int> &other)
 	: Array(other)
 {}
 
-HuffmanHeap::HuffmanHeap(uint size)
-	: Heap(size)
+int BaseHeap::leftChild(int nodeIndex)
 {
-	characters.resize(size);
+	{return 0;}
 }
 
-HuffmanHeap::HuffmanHeap(const HuffmanHeap& other)
-	: Heap(other),
-	  characters(other.characters.begin(),other.characters.end())
-{}
+int BaseHeap::rightChild(int nodeIndex) {return 0;}
 
-char HuffmanHeap::getCharacter(const uint i)
-{
-	return characters[i];
-}
+void BaseHeap::insertHeapNode(int heapSize, int value) {}
 
-void HuffmanHeap::setCharacter(const uint i, char c)
-{
-	characters[i] = c;
-}
+void BaseHeap::heapify(int heapSize, int nodeIndex) {}
 
-void HuffmanHeap::resize(uint size)
-{
-	Heap::resize(size);
-	characters.resize(size);
-}
+void BaseHeap::buildHeap(Array& numbers) {}
+
+void BaseHeap::heapSort() {}
