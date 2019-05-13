@@ -54,10 +54,10 @@ You can also use Visual Studio to edit and build your code with the QT Visual St
 
 - Left child - **[DONE]**
 - Right chilld - **[DONE]**
-- Insert heap node
-- Heapify
-- Build heap
-- Heap sort
+- Insert heap node - **[DONE]**
+- Heapify - **[DONE]**
+- Build heap - **[DONE]**
+- Heap sort - **[DONE]**
 - Char frequences
 
 ### Huffman encoding
