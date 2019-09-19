@@ -9,7 +9,7 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/bin/Debug/imac-tp-algo-sem-2.exe",
-            "args": [],
+            "args": ["6.1"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
