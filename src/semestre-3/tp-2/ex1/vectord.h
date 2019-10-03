@@ -8,8 +8,12 @@ public:
     VectorD(const VectorD& vec);
     ~VectorD();
 
-    unsigned int getSize() const { return m_size; }
-    unsigned int* getData() const { return m_data; }
+    size_t size() const { return m_size; }
+    unsigned int* data() const { return m_data; }
+    unsigned int* at(size_t i) { return &m_data[i]; }
+
+    unsigned int dot(unsigned int x, unsigned int y);
+    unsigned int norm();
 
 private:
     size_t m_size;
