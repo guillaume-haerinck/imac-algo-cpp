@@ -1,5 +1,7 @@
 #include "vector-d.h"
 
+#include <iostream>
+
 int main(int argc, char const *argv[]) {
     VectorD vec1(10);
 	VectorD vec2(10);
@@ -25,9 +27,7 @@ int main(int argc, char const *argv[]) {
 	vec5.readVector(1);
 	vec6.readVector(2);
 
-	vec4.print();
-	vec5.print();
-	vec6.print();
-    
+	std::cout << vec4 << std::endl;
+
     return 0;
 }

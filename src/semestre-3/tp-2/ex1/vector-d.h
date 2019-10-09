@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ostream>
+
 class VectorD {
 	public:
 		VectorD(const size_t size = 1);
@@ -12,6 +14,8 @@ class VectorD {
 
 		double& operator[](const size_t i); // Setter
 		const double& operator[](const size_t i) const; // Getter
+
+		friend std::ostream& operator<< (std::ostream& stream, const VectorD &vec);
 
 		// CLASSIC METHODS
 		size_t size() const;

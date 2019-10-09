@@ -47,6 +47,10 @@ VectorD& VectorD::operator=(VectorD const& src) {
 }
 
 VectorD VectorD::operator+(VectorD const& vec) const {
+    if (m_size != vec.m_size) { 
+        return *this;
+    }
+
 	VectorD res(m_size);
     std::transform(m_data, m_data + m_size, vec.m_data, res.m_data, std::plus<double>());
     return res;
@@ -59,6 +63,16 @@ double& VectorD::operator[](const size_t i) {
 
 const double& VectorD::operator[](const size_t i) const {
 	return m_data[i];
+}
+
+std::ostream& operator<< (std::ostream& stream, const VectorD &vec) {
+    if (vec.m_size == 0) return stream;
+
+    stream << "(";
+    for (size_t i = 0; i < vec.size() - 1; ++i) {
+        stream << vec[i] << ", ";
+    }
+    stream << vec[vec.size() - 1] << ")";
 }
 
 /***** CLASSIC METHODS *****/
