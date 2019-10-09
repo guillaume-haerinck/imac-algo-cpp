@@ -28,9 +28,7 @@ class VectorD {
 		void normalize();
 
 		// FILE STREAM
-		void writeInFile() const;
-		void resetFile() const;
-		void readVector(const int index);
+		void save(const char* filepath);
 
 	protected:
 		size_t m_size;

@@ -12,22 +12,11 @@ int main(int argc, char const *argv[]) {
 		vec2[i] = 2*i;
 	}
 
-	vec3 = vec1 + vec2;
+    vec1.save("export.txt");
 
-	vec1.resetFile();
-	vec1.writeInFile();
-	vec2.writeInFile();
-	vec3.writeInFile();
+	std::cout << vec1 + vec2 << std::endl;
 
-	VectorD vec4(10);
-	VectorD vec5(10);
-	VectorD vec6(10);
-
-	vec4.readVector(0);
-	vec5.readVector(1);
-	vec6.readVector(2);
-
-	std::cout << vec4 << std::endl;
+    
 
     return 0;
 }
