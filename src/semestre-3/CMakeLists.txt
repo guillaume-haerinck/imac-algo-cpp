@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 # ---------------------------------------- PROJECT FILES
 project(imac-tp-algo-sem-2)
-file(GLOB_RECURSE MY_SOURCES maths-1/ex7/*) # EDIT ME
+file(GLOB_RECURSE MY_SOURCES tp-2/ex1/*) # EDIT ME
 
 # ------------------------------------------- BUILD PROJECT
 set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
