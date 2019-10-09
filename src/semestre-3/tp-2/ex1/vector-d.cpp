@@ -4,6 +4,7 @@
 #include <cmath>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 /***** CONSTRUCTORS & DESTRUCTOR *****/
 
@@ -45,18 +46,10 @@ VectorD& VectorD::operator=(VectorD const& src) {
 	return *this;
 }
 
-VectorD VectorD::operator+(VectorD const& other) const {
-	if(m_size != other.m_size) {
-		std::cerr << "ERROR: vectors don't have the same size" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-
-	VectorD result(m_size);
-
-	for(size_t i(0); i < result.m_size; ++i) {
-		result[i] = m_data[i] + other.m_data[i]; 
-	}
-	return result;
+VectorD VectorD::operator+(VectorD const& vec) const {
+	VectorD res(m_size);
+    std::transform(m_data, m_data + m_size, vec.m_data, res.m_data, std::plus<double>());
+    return res;
 }
 
 
@@ -67,8 +60,6 @@ double& VectorD::operator[](const size_t i) {
 const double& VectorD::operator[](const size_t i) const {
 	return m_data[i];
 }
-
-
 
 /***** CLASSIC METHODS *****/
 
@@ -158,8 +149,7 @@ void VectorD::readVector(const int index) {
 				++i;
 			}
 			break;
-		}
-		else {
+		} else {
 			++currentLine;
 		}
 	}
