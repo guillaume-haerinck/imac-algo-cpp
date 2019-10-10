@@ -1,8 +1,11 @@
 #include <iostream>
 #include <Eigen/Dense>
 #include <ctime>
+#include <cassert>
+#include "chrono.h"
 
 double dot1(const Eigen::VectorXd &vec1, const Eigen::VectorXd &vec2) {
+    assert(vec1.size() == vec2.size() && "Vectors must have the same size");
     double result = 0.0f;
     for (size_t i = 0; i < vec1.size(); ++i) {
         result += vec1[i] * vec2[i];
@@ -10,20 +13,53 @@ double dot1(const Eigen::VectorXd &vec1, const Eigen::VectorXd &vec2) {
     return result;
 }
 
-double dot2(const Eigen::VectorXd &vec1, const Eigen::VectorXd &vec2) {
-    double result = 0.0f;
-
+Eigen::MatrixXd matProduct(const Eigen::MatrixXd& mat1, const Eigen::MatrixXd& mat2) {
+    assert(mat1.size() == mat2.size() && "Matrices must have the same size");
+    Eigen::MatrixXd result = Eigen::MatrixXd::Zero(mat1.rows(), mat1.cols());
+    
+    for (size_t i = 0; i < result.rows(); i++) {
+        for (size_t j = 0; j < result.cols(); j++) {
+            for (size_t k = 0; k < mat1.cols(); k++) {
+                result(i, j) += mat1(i, k) * mat2(k, j);
+            }
+        }
+    }
+    
     return result;
 }
 
 int main() {
-    const size_t dimension = 1000;
+    const size_t dimension = 500;
+    TP_CPP_IMAC2::Chrono chrono;
+
+    Eigen::MatrixXd A = Eigen::MatrixXd::Random(dimension, dimension);
+    Eigen::MatrixXd B = Eigen::MatrixXd::Random(dimension, dimension);
+
+    chrono.start();
+    Eigen::MatrixXd eingenResult = A * B;
+    std::cout << "Eignen mean : " << chrono.timeSpan() << std::endl;
+    chrono.stop();
+
+    chrono.start();
+    Eigen::MatrixXd myResult = matProduct(A, B);
+    std::cout << "My mean : " << chrono.timeSpan() << std::endl;
+    chrono.stop();
+
+    std::cout << (eingenResult - myResult).norm() << std::endl;
+
+    /*
+
+    chrono.start();
+    std::cout << "mean : " << chrono.timeSpan() << std::endl;
+    chrono.stop();
+    
     Eigen::VectorXd vec1 = Eigen::VectorXd::Random(dimension);
     Eigen::VectorXd vec2 = Eigen::VectorXd::Random(dimension);
 
-
     std::cout << "My dot1 : " << dot1(vec1, vec2) << std::endl;
+    std::cout << "My dot2 : " << dot2(vec1, vec2) << std::endl;
     std::cout << "Eignen dot : " << vec1.dot(vec2) << std::endl;
+    */
 
     /*
     Eigen::VectorXd v1(5);
