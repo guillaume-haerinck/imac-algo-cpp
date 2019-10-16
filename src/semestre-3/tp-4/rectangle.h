@@ -1,7 +1,8 @@
 #pragma once
 class Rectangle {
 public:
-    Rectangle();
+    Rectangle() = default;
+    Rectangle(double width, double height);
     ~Rectangle();
 
     ///////////////////////////////////////////////
@@ -16,9 +17,9 @@ public:
 
     double surface() const { return m_height * m_width; }
 
-private:
-    double m_width;
-    double m_height;
+protected:
+    double m_width = 0;
+    double m_height = 0;
 };
 
 
