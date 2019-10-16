@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 # ---------------------------------------- PROJECT FILES
 project(imac-tp-algo-sem-2)
-file(GLOB_RECURSE MY_SOURCES maths-2/ex1/*) # EDIT ME
+file(GLOB_RECURSE MY_SOURCES tp-4/*) # EDIT ME
 
 include_directories(
     lib
