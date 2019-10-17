@@ -9,14 +9,14 @@ Eigen::MatrixXd StrassenMultiply(const Eigen::MatrixXd& A, const Eigen::MatrixXd
     unsigned int rows = A.rows() / 2;
     unsigned int cols = A.cols() / 2;
 
-    auto a = A.topLeftCorner(rows, cols);
-    auto b = A.topRightCorner(rows, cols);
-    auto c = A.bottomLeftCorner(rows, cols);
-    auto d = A.bottomRightCorner(rows, cols);
-    auto e = B.topLeftCorner(rows, cols);
-    auto f = B.topRightCorner(rows, cols);
-    auto g = B.bottomLeftCorner(rows, cols);
-    auto h = B.bottomRightCorner(rows, cols);
+    Eigen::MatrixXd a = A.topLeftCorner(rows, cols);
+    Eigen::MatrixXd b = A.topRightCorner(rows, cols);
+    Eigen::MatrixXd c = A.bottomLeftCorner(rows, cols);
+    Eigen::MatrixXd d = A.bottomRightCorner(rows, cols);
+    Eigen::MatrixXd e = B.topLeftCorner(rows, cols);
+    Eigen::MatrixXd f = B.topRightCorner(rows, cols);
+    Eigen::MatrixXd g = B.bottomLeftCorner(rows, cols);
+    Eigen::MatrixXd h = B.bottomRightCorner(rows, cols);
 
     Eigen::MatrixXd P1 = StrassenMultiply(a, f - h);
     Eigen::MatrixXd P2 = StrassenMultiply(a + b, h);
@@ -31,7 +31,13 @@ Eigen::MatrixXd StrassenMultiply(const Eigen::MatrixXd& A, const Eigen::MatrixXd
     Eigen::MatrixXd t = P3 + P4;
     Eigen::MatrixXd u = P1 + P5 - P3 - P7;
 
-    // TODO return matrix rstu
+    Eigen::MatrixXd result = Eigen::MatrixXd::Zero(r.cols() + s.cols(), r.cols() + s.cols());
+    result.topLeftCorner(rows, cols) = r;
+    result.topRightCorner(rows, cols) = s;
+    result.bottomLeftCorner(rows, cols) = t;
+    result.bottomRightCorner(rows, cols) = h;
+
+    return result;
 }
 
 int main(int argc, char const *argv[]) {
