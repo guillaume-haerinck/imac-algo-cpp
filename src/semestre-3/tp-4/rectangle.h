@@ -1,4 +1,7 @@
 #pragma once
+
+#include <string>
+
 class Rectangle {
 public:
     Rectangle() = default;
@@ -16,6 +19,8 @@ public:
     void height(double height) { m_height = height; }
 
     double surface() const { return m_height * m_width; }
+
+    virtual std::string whoAmI() { return std::string("Rectangle"); }
 
 protected:
     double m_width = 0;
