@@ -2,7 +2,7 @@
 #include <iostream>
 
 void buildSystem(Eigen::MatrixXd& A, Eigen::VectorXd& b, const unsigned int dim) {
-    A = Eigen::MatrixXd::Random(dim);
+    A = Eigen::MatrixXd::Random(dim, dim);
     A.diagonal() += (dim + 1) * Eigen::VectorXd::Ones(dim);
     
     b = Eigen::VectorXd::Random(dim);
@@ -26,11 +26,14 @@ Eigen::VectorXd GS(const Eigen::MatrixXd& A, const Eigen::VectorXd& b, const uns
 }
 
 int main(int argc, char const *argv[]) {
-    Eigen::MatrixXd A = Eigen::MatrixXd::Random(2, 2);
-    Eigen::VectorXd b = Eigen::VectorXd::Random(2);
+    Eigen::MatrixXd A = Eigen::MatrixXd::Random(60, 60);
+    Eigen::VectorXd b = Eigen::VectorXd::Random(60);
 
     buildSystem(A, b, A.size());
-    GS(A, b, 5);
+    Eigen::VectorXd x = GS(A, b, 40);
+
+    auto erreur = (A * x - b).norm();
+    std::cout << erreur << std::endl;
 
     return 0;
 }
