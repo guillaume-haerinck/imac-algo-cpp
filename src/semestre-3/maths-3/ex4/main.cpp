@@ -28,11 +28,12 @@ Eigen::VectorXd GS(const Eigen::MatrixXd& A, const Eigen::VectorXd& b, const uns
 }
 
 int main(int argc, char const *argv[]) {
-    Eigen::MatrixXd A = Eigen::MatrixXd::Random(5, 5);
-    Eigen::VectorXd b = Eigen::VectorXd::Random(5);
+    const unsigned int arraySize = 5;
+    Eigen::MatrixXd A = Eigen::MatrixXd::Random(arraySize, arraySize);
+    Eigen::VectorXd b = Eigen::VectorXd::Random(arraySize);
 
     buildSystem(A, b, A.size());
-    Eigen::VectorXd x = GS(A, b, 16);
+    Eigen::VectorXd x = GS(A, b, 280);
 
     return 0;
 }
