@@ -2,6 +2,13 @@
 #include <iostream>
 #include <cassert>
 
+/**
+ * @brief Resolve given polynom at x value
+ * 
+ * @param p 
+ * @param x 
+ * @return double 
+ */
 double evalPolynomial(const Eigen::VectorXd &p, const double x) {
     double result = 0;
     double power_x = 1;
@@ -12,6 +19,13 @@ double evalPolynomial(const Eigen::VectorXd &p, const double x) {
     return result;
 }
 
+/**
+ * @brief Multiply given polynom by X at value power
+ * 
+ * @param p 
+ * @param value 
+ * @return Eigen::VectorXd 
+ */
 Eigen::VectorXd multiplyPolynomByX(const Eigen::VectorXd &p, const unsigned int value) {
     Eigen::VectorXd result(p.size() + value);
     for (unsigned int i = 0; i < value; i++) {
@@ -23,6 +37,13 @@ Eigen::VectorXd multiplyPolynomByX(const Eigen::VectorXd &p, const unsigned int 
     return result;
 }
 
+/**
+ * @brief Multiply given polynom by given constant
+ * 
+ * @param p 
+ * @param value 
+ * @return Eigen::VectorXd 
+ */
 Eigen::VectorXd multiplyPolynomByConstant(Eigen::VectorXd p, const unsigned int value) {
     for (unsigned int i = 0; i < p.size(); i++) {
         p[i] *= value;
@@ -30,6 +51,13 @@ Eigen::VectorXd multiplyPolynomByConstant(Eigen::VectorXd p, const unsigned int 
     return p;
 }
 
+/**
+ * @brief Substract p1 polynom by p2
+ * 
+ * @param p1 
+ * @param p2 
+ * @return Eigen::VectorXd 
+ */
 Eigen::VectorXd substractPolynoms(const Eigen::VectorXd& p1, const Eigen::VectorXd& p2) {
     assert(p1.size() == p2.size() && "To be substracted, polynoms must be same size");
     Eigen::VectorXd result(p1.size());
@@ -42,13 +70,20 @@ Eigen::VectorXd substractPolynoms(const Eigen::VectorXd& p1, const Eigen::Vector
     return result;
 }
 
-int main(int argc, char const *argv[]) {
-    Eigen::VectorXd myPolynom1(3);
-    myPolynom1 << 2, 3, 1;
-    Eigen::VectorXd myPolynom2(3);
-    myPolynom2 << 9, 5, 4;
+/**
+ * @brief Returns a polynom from its root values
+ * 
+ * @param roots 
+ * @return Eigen::VectorXd 
+ */
+Eigen::VectorXd polynomialFromRoots(const Eigen::VectorXd &roots) {
+    return roots;
+}
 
-    auto result = substractPolynoms(myPolynom1, myPolynom2);
+int main(int argc, char const *argv[]) {
+    Eigen::VectorXd myRoot(3);
+
+    auto result = polynomialFromRoots(myRoot);
     std::cout << result << std::endl;
     return 0;
 }
