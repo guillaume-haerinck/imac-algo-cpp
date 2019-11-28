@@ -11,7 +11,7 @@ double evalPolynomial(const Eigen::VectorXd &p, const double x) {
     return result;
 }
 
-Eigen::VectorXd multiplyPolynom(const Eigen::VectorXd &p, const unsigned int value) {
+Eigen::VectorXd multiplyPolynomByX(const Eigen::VectorXd &p, const unsigned int value) {
     Eigen::VectorXd result(p.size() + value);
     for (size_t i = 0; i < value; i++) {
         result[i] = 0;
@@ -22,10 +22,17 @@ Eigen::VectorXd multiplyPolynom(const Eigen::VectorXd &p, const unsigned int val
     return result;
 }
 
+Eigen::VectorXd multiplyPolynomByConstant(Eigen::VectorXd p, const unsigned int value) {
+    for (size_t i = 0; i < p.size(); i++) {
+        p[i] *= value;
+    }
+    return p;
+}
+
 int main(int argc, char const *argv[]) {
     Eigen::VectorXd myPolynom(3);
     myPolynom << 2, 3, 1;
-    auto result = multiplyPolynom(myPolynom, 4);
+    auto result = multiplyPolynomByConstant(myPolynom, 4);
     std::cout << result << std::endl;
     return 0;
 }
