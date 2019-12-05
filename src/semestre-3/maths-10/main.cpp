@@ -77,11 +77,26 @@ Eigen::VectorXd substractPolynoms(const Eigen::VectorXd& p1, const Eigen::Vector
  * @return Eigen::VectorXd 
  */
 Eigen::VectorXd polynomialFromRoots(const Eigen::VectorXd &roots) {
-    return roots;
+    Eigen::VectorXd p = Eigen::VectorXd::Ones(roots.size() + 1);
+
+    // For the first root
+    p(0) = -roots(0);
+
+    // For the other roots
+    for (unsigned int i = 0; i < roots.size(); i++) {
+        for (unsigned int j = i; j > 0; j--) {
+            p(j) = p(j-1)-roots(i)*p(j);
+        }
+        p(0) *= -roots(i);
+    }
+    
+
+    return result;
 }
 
 int main(int argc, char const *argv[]) {
     Eigen::VectorXd myRoot(3);
+    myRoot << 1, 2, 3;
 
     auto result = polynomialFromRoots(myRoot);
     std::cout << result << std::endl;
