@@ -89,16 +89,40 @@ Eigen::VectorXd polynomialFromRoots(const Eigen::VectorXd &roots) {
         }
         p(0) *= -roots(i);
     }
-    
 
-    return result;
+    return p;
+}
+
+/**
+ * @brief 
+ * 
+ * @param p - Polynom to solve
+ * @return Eigen::VectorXd 
+ */
+Eigen::VectorXd findRoots(const Eigen::VectorXd &p, unsigned int nbIter) {
+    Eigen::VectorXd pUnit = p / p(p.size() - 1);
+    Eigen::MatrixXd c = Eigen::MatrixXd::Zero(p.size() - 1, p.size() - 1);
+    c.bottomLeftCorner(c.rows() - 1, c.cols() - 1).setIdentity();
+    c.rightCols(1) = -pUnit.head(pUnit.size() - 1);
+
+    // Iterative solver
+    for (size_t i = 0; i < nbIter; i++) {
+        Eigen::HouseholderQR<Eigen::MatrixXd> qr(c);
+        Eigen::MatrixXd q = qr.householderQ();
+        Eigen::MatrixXd r = qr.matrixQR().triangularView<Eigen::Upper>();
+        c = r * q;
+    }
+    
+    return c.diagonal();
 }
 
 int main(int argc, char const *argv[]) {
-    Eigen::VectorXd myRoot(3);
-    myRoot << 1, 2, 3;
+    Eigen::VectorXd myRoot(5);
+    myRoot << 1, 2, 2, 3, 4;
+    auto myPolynom = polynomialFromRoots(myRoot);
 
-    auto result = polynomialFromRoots(myRoot);
-    std::cout << result << std::endl;
+    auto foundRoot = findRoots(myPolynom, 100);
+
+    std::cout << foundRoot << std::endl;
     return 0;
 }
