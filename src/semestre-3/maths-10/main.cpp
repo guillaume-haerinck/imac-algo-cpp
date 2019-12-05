@@ -116,13 +116,49 @@ Eigen::VectorXd findRoots(const Eigen::VectorXd &p, unsigned int nbIter) {
     return c.diagonal();
 }
 
+/**
+ * @brief Returns the derivate of a polynom
+ * 
+ * @param p 
+ * @return Eigen::VectorXd 
+ */
+Eigen::VectorXd derivative(const Eigen::VectorXd& p) {
+    Eigen::VectorXd derivate(p.size() - 1);
+    for (unsigned int i = 0; i < derivate.size(); ++i) {
+        derivate(i) = (i + 1) * p(i + 1);
+    }
+    return derivate;
+}
+
+/**
+ * @brief 
+ * 
+ * @param p 
+ * @param roots 
+ * @return Eigen::VectorXd 
+ */
+Eigen::VectorXd rootsRafinement(const Eigen::VectorXd& p, Eigen::VectorXd roots, const unsigned int nbIter = 10) {
+    Eigen::VectorXd pDerivative = derivative(p);
+
+    for (unsigned int i = 0; i < roots.size(); i++) {
+        if (abs(roots(i)) > 0) {
+            for (unsigned int j = 0; j < nbIter; j++) {
+                roots(i) = roots(i) - ( evalPolynomial(p, roots(i)) / evalPolynomial(pDerivative, roots(i)) );
+            }
+        }
+    }
+    
+    return roots;
+}
+
 int main(int argc, char const *argv[]) {
     Eigen::VectorXd myRoot(5);
     myRoot << 1, 2, 2, 3, 4;
     auto myPolynom = polynomialFromRoots(myRoot);
 
-    auto foundRoot = findRoots(myPolynom, 100);
+    auto foundRoot = findRoots(myPolynom, 10);
+    auto foundRootRaf = rootsRafinement(myPolynom, foundRoot, 50);
 
-    std::cout << foundRoot << std::endl;
+    std::cout << foundRootRaf << std::endl;
     return 0;
 }
